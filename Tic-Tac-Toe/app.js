@@ -67,7 +67,23 @@ for (let btn of btns) {
   });
 }
 
+function highestScore(num){
+  highScore.push(num);
+  let idx = 0;
+  for(let i = 0; i < highScore.length;i++){
+    let max = highScore[idx];
+    if(highScore[i] > max){
+      idx = i;
+    }
+  }
+  h3.innerText = `Your Current highest Score is ${highScore[idx]}`;
+}
 
+function showWinner(winner){
+    winnerText.innerText = `Congratulations!, Winner is ${winner}`;
+    msgCon.classList.remove("hide");
+    main.classList.add("hide");
+}
 
 function checkWinner() {
   for (let winpattern of winningPatterns) {
