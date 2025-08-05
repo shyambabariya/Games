@@ -7,26 +7,31 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="msgContainer hide">
+    <!-- <div class="name-container">
+        <input type="text" class="player1" placeholder="Player One name" required>
+        <input type="text" class="player2" placeholder="Player Two name" required>
+      <button class="mainBtns" id="startGame">Start Game</button>  
+    </div> -->
+
+    <div class="msg-container hide">
       <h2 id="winText"></h2>
       <h3></h3>
       <button class="mainBtns" id="newGame">New Game</button>
     </div>
-
     <main>
       <h1>Tic-Tac-Toe Game</h1>
-      <h2 id="start">Press Any key to start the game</h2>
+      <h2 id="heading">Game Started</h2>
       <div class="container">
         <div class="gameBtn">
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
-          <button class="box"></button>
+          <button class="box" id="one"></button>
+          <button class="box" id="two"></button>
+          <button class="box" id="three"></button>
+          <button class="box" id="four"></button>
+          <button class="box" id="five"></button>
+          <button class="box" id="six"></button>
+          <button class="box" id="seven"></button>
+          <button class="box" id="eight"></button>
+          <button class="box" id="nine"></button>
         </div>
       </div>
       <button class="mainBtns" id="reset">Reset Game</button>
