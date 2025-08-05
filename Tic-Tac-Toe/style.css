@@ -40,13 +40,19 @@ body{
     border: none;
 }
 
-
-.msgContainer{
+.msg-container, .name-container{
     height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+.name-container input{
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: none;
 }
 .hide{
     display: none;
