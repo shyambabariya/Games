@@ -1,7 +1,7 @@
 let body = document.querySelector("body");
 let nameCon = document.querySelector(".name-container");
 let player1 = document.querySelector(".player1");
-let player2 = document.querySelector(".player2");
+// let player2 = document.querySelector(".player2");
 let startGame = document.querySelector("#startGame");
 let btns = document.querySelectorAll(".box");
 let heading = document.querySelector("#heading");
@@ -13,13 +13,23 @@ let main = document.querySelector("main");
 let resetGameBtn = document.querySelector("#reset");
 
 let started = false;
-let turnO = true;
+let userMove = true;
 let level = 0;
 let count = 0;
 let totalDraw = 0;
 let highScore = [];
 
-let boxes = ["one", "two", "three", "four", "five","six","seven","eight","nine"];
+let boxes = [
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
 let game = [];
 
 let winningPatterns = [
@@ -33,7 +43,7 @@ let winningPatterns = [
   [2, 4, 6],
 ];
 
-// main.classList.add("hide");
+main.classList.add("hide");
 
 const disableBtn = () => {
   for (btn of btns) {
@@ -51,9 +61,7 @@ const enableBtn = () => {
 body.addEventListener("keypress", () => {
   if (started == false) {
     startGame.addEventListener("click", () => {
-      console.log(player1.value);
-      console.log(player2.value);
-      main.classList.remove("hide");
+      // main.classList.remove("hide");
       nameCon.classList.add("hide");
     });
     heading.innerText = `Game Started`;
@@ -62,65 +70,80 @@ body.addEventListener("keypress", () => {
 });
 
 const resetGame = () => {
-  turnO = true;
+  userMove = true;
   enableBtn();
   started = false;
   count = 0;
   msgCon.classList.add("hide");
   main.classList.remove("hide");
+  boxes = [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+  ];
+  game = [];
 };
+setTimeout(resetGame, 500);
 
-// function comp(){
-//   const randIdx = Math.floor(Math.random()*boxes.length);
-//   const randBox = boxes[randIdx];
-//   const randBtn = document.querySelector(`#${randBox}`);
-//   game.push(randBox);
-//   randBtn.innerText = "X";
-//   randBtn.disabled = true;
-//   boxes.splice(randIdx, 1);
+function compMove() {
+  const randIdx = Math.floor(Math.random() * boxes.length);
+  const randBox = boxes[randIdx];
+  const randBtn = document.querySelector(`#${randBox}`);
+  randBtn.innerText = "X";
+  boxes.splice(randIdx, 1);
+  game.push(randBtn.innerText);
+  console.log(game);
+  count++;
+  userMove = true;
 
-//   count++;
-//   turnO = true;
+  if (count === 9 && !checkWinner()) {
+    gameDraw();
+  }
+  checkWinner();
+  console.log(boxes);
+  // console.log(game);
 
-//   if (count === 9 && !checkWinner()) {
-//         gameDraw();
-//       }
-//       checkWinner();
-//   // console.log(boxes);
-//   console.log(game);
-
-//   // turnO = true;
-//   // disableBtn();
-// }
+  // disableBtn();
+}
 
 for (let btn of btns) {
   btn.addEventListener("click", () => {
-    if (turnO) {
-      console.log("btn click")
+    if (userMove) {
+      let nam = player1.value;
       let btox = btn.getAttribute("id");
       console.log(btox);
-      let thing = boxes.splice(btox,1);
-      console.log(thing);
-      // game.push(thing);
-      // console.log(game);
+      let idx = boxes.indexOf(btox);
+      console.log(idx);
+      if (idx > -1) {
+        boxes.splice(idx, 1);
+      }
+      // let thing = boxes.splice(btox,1);
+      // console.log(thing);
       btn.innerText = "O";
-      btn.disabled = true;
-      // console.log(boxes);
-      
+      console.log(boxes);
       count++;
-      turnO = false;
+      userMove = false;
+      game.push(btn.innerText);
+      console.log(game);
 
-      checkWinner();
-    if(count < 9 && !checkWinner())  {
-      setTimeout(comp, 500);
-    }
+      checkWinner(nam);
+      // checkWinner();
+      if (count < 9 && !checkWinner()) {
+        setTimeout(compMove, 500);
+      }
       if (count === 9 && !checkWinner()) {
         gameDraw();
       }
     }
   });
-
 }
+
 function gameDraw() {
   winnerText.innerText = `Opps!, The Game is Draw,
     if you want to play again then press on New Game`;
@@ -149,7 +172,11 @@ function highestScore(num) {
 //     main.classList.add("hide");
 // }
 
-function checkWinner() {
+function checkWinner(nam) {
+  // for(let i = 0; i < game.length; i++){
+  //   // if(game[i].innerText);
+  //   console.log(game[i].innerText)
+  // }
   for (let winpattern of winningPatterns) {
     let pos1 = btns[winpattern[0]].innerText;
     let pos2 = btns[winpattern[1]].innerText;
@@ -159,8 +186,16 @@ function checkWinner() {
         disableBtn();
         level++;
         highestScore(level);
-        winnerText.innerText = `Congratulations!, Winner is ${pos1}, 
-            if you want to play again then press on New Game`;
+        // if(nam != player1.value){
+        //   winnerText.innerText = `ohh Sorry!, Winner is Computer,
+        //    if you want to play again then press on New Game`;
+        // }
+        // else{
+        //   winnerText.innerText = `Congratulations!, Winner is ${nam},
+        //       if you want to play again then press on New Game`;
+        // }
+        winnerText.innerText = `ohh Sorry!, Winner is ${pos1},
+           if you want to play again then press on New Game`;
         msgCon.classList.remove("hide");
         main.classList.add("hide");
         // showWinner(pos1);
@@ -171,12 +206,3 @@ function checkWinner() {
 
 resetGameBtn.addEventListener("click", resetGame);
 newGameBtn.addEventListener("click", resetGame);
-
-
-
-// function user(btn){
-//   // btn = this;
-//   console.log(this);
-//   // boxes.splice(this, 1);
-//   // btn.innerText = "O";
-// }
