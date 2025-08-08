@@ -43,7 +43,7 @@ let winningPatterns = [
   [2, 4, 6],
 ];
 
-main.classList.add("hide");
+// main.classList.add("hide");
 
 const disableBtn = () => {
   for (btn of btns) {
@@ -61,7 +61,7 @@ const enableBtn = () => {
 body.addEventListener("keypress", () => {
   if (started == false) {
     startGame.addEventListener("click", () => {
-      // main.classList.remove("hide");
+      main.classList.remove("hides");
       nameCon.classList.add("hide");
     });
     heading.innerText = `Game Started`;
@@ -92,24 +92,26 @@ const resetGame = () => {
 setTimeout(resetGame, 500);
 
 function compMove() {
+  // let winingCount = 0;
   const randIdx = Math.floor(Math.random() * boxes.length);
   const randBox = boxes[randIdx];
   const randBtn = document.querySelector(`#${randBox}`);
   randBtn.innerText = "X";
+  randBtn.disabled = true;
   boxes.splice(randIdx, 1);
   game.push(randBtn.innerText);
   console.log(game);
   count++;
   userMove = true;
-
   if (count === 9 && !checkWinner()) {
     gameDraw();
   }
   checkWinner();
   console.log(boxes);
   // console.log(game);
-
   // disableBtn();
+  // winingCount++;
+  // h3.innerText = `Your Current highest Score of ${randBtn.innerText} is ${winingCount}`;
 }
 
 for (let btn of btns) {
@@ -133,6 +135,7 @@ for (let btn of btns) {
       console.log(game);
 
       checkWinner(nam);
+      // level++;
       // checkWinner();
       if (count < 9 && !checkWinner()) {
         setTimeout(compMove, 500);
@@ -154,17 +157,17 @@ function gameDraw() {
   disableBtn();
 }
 
-function highestScore(num) {
-  highScore.push(num);
-  let idx = 0;
-  for (let i = 0; i < highScore.length; i++) {
-    let max = highScore[idx];
-    if (highScore[i] > max) {
-      idx = i;
-    }
-  }
-  h3.innerText = `Your Current highest Score is ${highScore[idx]}`;
-}
+// function highestScore(num) {
+//   highScore.push(num);
+//   let idx = 0;
+//   for (let i = 0; i < highScore.length; i++) {
+//     let max = highScore[idx];
+//     if (highScore[i] > max) {
+//       idx = i;
+//     }
+//   }
+//   h3.innerText = `Your Current highest Score is ${highScore[idx]}`;
+// }
 
 // function showWinner(winner){
 //     winnerText.innerText = `Congratulations!, Winner is ${winner}`;
@@ -184,8 +187,8 @@ function checkWinner(nam) {
     if (pos1 != "" && pos2 != "" && pos3 != "") {
       if (pos1 == pos2 && pos2 == pos3) {
         disableBtn();
-        level++;
-        highestScore(level);
+        // level++;
+        // highestScore(level);
         // if(nam != player1.value){
         //   winnerText.innerText = `ohh Sorry!, Winner is Computer,
         //    if you want to play again then press on New Game`;
@@ -194,11 +197,13 @@ function checkWinner(nam) {
         //   winnerText.innerText = `Congratulations!, Winner is ${nam},
         //       if you want to play again then press on New Game`;
         // }
-        winnerText.innerText = `ohh Sorry!, Winner is ${pos1},
+        winnerText.innerText = `Winner is ${pos1},
            if you want to play again then press on New Game`;
+           h3.innerText = `Your total playing games is ${level}`;
         msgCon.classList.remove("hide");
         main.classList.add("hide");
         // showWinner(pos1);
+        
       }
     }
   }
