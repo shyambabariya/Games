@@ -2,7 +2,8 @@ body{
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.btn-container{
+
+.container{
     display: flex;
     justify-content: center;
 }
@@ -11,25 +12,21 @@ body{
     height: 200px;
     width: 200px;
     border: 10px solid black;
-    border-radius: 20%;
-    margin: 2.5rem;
-}
-
-.yellow{
-    background-color: #901E3E;
+    border-radius: 25%;
+    margin: 2rem;
 }
 .red{
     background-color: #DC2525;
 }
-.purple{
-    background-color: #819ff9;
-}
 .green{
     background-color: #9BC09C;
 }
-.gameFlash{
-    background-color: #fff;
+.yellow{
+    background-color: #901E3E;
 }
-.userFlash{
-    background-color: green;
+.blue{
+    background-color: #819ff9;
+}
+.flash{
+    background-color: white;
 }
